@@ -9,8 +9,6 @@ resource "azurerm_key_vault" "kv" {
     name = "standard"
   }
 
-  tenant_id = "${var.tenant_id}"
-
   access_policy {
     tenant_id = "${var.tenant_id}"
 
