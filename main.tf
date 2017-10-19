@@ -29,6 +29,8 @@ resource "azurerm_key_vault" "kv" {
   }
 
   enabled_for_disk_encryption = true
+  enabled_for_deployment = true
+  enabled_for_template_deployment = true
 
   tags {
     environment = "${var.env}"
