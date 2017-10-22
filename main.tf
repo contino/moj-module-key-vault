@@ -19,12 +19,45 @@ resource "azurerm_key_vault" "kv" {
       "get",
       "list",
       "create",
+      "backup",
+      "decrypt",
+      "delete",
+      "encrypt",
+      "import",
+      "purge",
+      "recover",
+      "restore",
+      "sign",
+      "unwrapKey",
+      "update",
+      "verify",
+      "wrapKey",
     ]
 
     secret_permissions = [
       "get",
       "list",
       "set",
+      "delete",
+      "backup",
+      "purge",
+      "recover",
+      "restore",
+    ]
+
+    certificate_permissions = [
+      "create",
+      "delete",
+      "deleteissuers",
+      "get",
+      "getissuers",
+      "import",
+      "list",
+      "listissuers",
+      "managecontacts",
+      "manageissuers",
+      "setissuers",
+      "update",
     ]
   }
 
