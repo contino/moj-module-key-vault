@@ -40,7 +40,6 @@ resource "azurerm_key_vault" "kv" {
       "delete",
       "update",
       "import",
-      "recover",
       "backup",
       "restore",
         ]
@@ -50,8 +49,6 @@ resource "azurerm_key_vault" "kv" {
       "list",
       "get",
       "delete",
-      "recover",
-      "backup",
     ]
   }
 
