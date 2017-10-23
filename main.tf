@@ -26,11 +26,11 @@ resource "azurerm_key_vault" "kv" {
       "getissuers",
       "import",
       "list",
-      "ListIssuers",
-      "SetIssuers",
-      "Update",
-      "ManageContacts",
-      "ManageIssuers",
+      "listissuers",
+      "setissuers",
+      "update",
+      "managecontacts",
+      "manageissuers",
     ]
 
     key_permissions = [
@@ -38,11 +38,11 @@ resource "azurerm_key_vault" "kv" {
       "list",
       "get",
       "delete",
-      "Update",
-      "Import",
-      "Recover",
-      "Backup",
-      "Restore",
+      "update",
+      "import",
+      "recover",
+      "backup",
+      "restore",
         ]
 
     secret_permissions = [
@@ -50,8 +50,8 @@ resource "azurerm_key_vault" "kv" {
       "list",
       "get",
       "delete",
-      "Recover",
-      "Backup",
+      "recover",
+      "backup",
     ]
   }
 
@@ -66,8 +66,8 @@ resource "azurerm_key_vault" "kv" {
       "getissuers",
       "import",
       "list",
-      "ListIssuers",
-      "Update",
+      "listissuers",
+      "update",
     ]
 
     key_permissions = [
