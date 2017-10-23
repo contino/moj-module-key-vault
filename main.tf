@@ -15,8 +15,8 @@ resource "azurerm_key_vault" "kv" {
 
   access_policy {
 
-    tenant_id = "${var.tenant_id}"
-    object_id = "${var.object_id}"
+    tenant_id = "${data.azurerm_client_config.current.tenant_id}"
+    object_id = "${data.azurerm_client_config.current.service_principal_object_id}"
 
     certificate_permissions = [
       "create",
