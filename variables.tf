@@ -11,3 +11,5 @@ variable "tenant_id" {}
 variable "sites_obj_id" {}
 
 variable "object_id" {}
+
+variable "sites_obj_id" {}
