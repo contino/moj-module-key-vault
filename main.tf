@@ -14,23 +14,49 @@ resource "azurerm_key_vault" "kv" {
   tenant_id = "${var.tenant_id}"
 
   access_policy {
+
     tenant_id = "${var.tenant_id}"
     object_id = "${var.object_id}"
 
     certificate_permissions = [
-      "all",
+      "create",
+      "delete",
+      "deleteissuers",
+      "get",
+      "getissuers",
+      "import",
+      "list",
+      "ListIssuers",
+      "SetIssuers",
+      "Update",
+      "ManageContacts",
+      "ManageIssuers",
     ]
 
     key_permissions = [
-      "all",
+      "create",
+      "list",
+      "get",
+      "delete",
+      "Update",
+      "Import",
+      "Recover",
+      "Backup",
+      "Restore",
         ]
 
     secret_permissions = [
-      "all",
+      "set",
+      "list",
+      "get",
+      "delete",
+      "Recover",
+      "Backup",
     ]
   }
 
   access_policy {
+
     tenant_id = "${var.tenant_id}"
     object_id = "abfa0a7c-a6b6-4736-8310-5855508787cd"
 
