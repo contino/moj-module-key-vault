@@ -55,7 +55,7 @@ resource "azurerm_key_vault" "kv" {
   access_policy {
 
     tenant_id = "${var.tenant_id}"
-    object_id = "abfa0a7c-a6b6-4736-8310-5855508787cd"
+    object_id = "${var.sites_obj_id}"
 
     certificate_permissions = [
       "create",

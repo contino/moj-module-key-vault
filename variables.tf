@@ -9,3 +9,5 @@ variable "env"{}
 variable "tenant_id" {}
 
 variable "object_id" {}
+
+variable "sites_obj_id" {}
