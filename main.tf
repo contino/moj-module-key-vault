@@ -15,35 +15,46 @@ resource "azurerm_key_vault" "kv" {
     tenant_id = "${var.tenant_id}"
     object_id = "${var.object_id}"
 
-    key_permissions = [
-      "get",
-      "list",
+    certificate_permissions = [
       "create",
-      "backup",
-      "decrypt",
       "delete",
-      "encrypt",
+      "deleteissuers",
+      "get",
+      "getissuers",
       "import",
-      "purge",
-      "recover",
-      "restore",
-      "sign",
-      "unwrapKey",
-      "update",
-      "verify",
-      "wrapKey",
+      "list",
+      "ListIssuers",
+      "SetIssuers",
+      "Update",
+      "ManageContacts",
+      "ManageIssuers",
     ]
 
-    secret_permissions = [
-      "get",
+    key_permissions = [
+      "create",
       "list",
-      "set",
+      "get",
       "delete",
-      "backup",
-      "purge",
-      "recover",
-      "restore",
+      "Update",
+      "Import",
+      "Recover",
+      "Backup",
+      "Restore",
+        ]
+
+    secret_permissions = [
+      "set",
+      "list",
+      "get",
+      "delete",
+      "Recover",
+      "Backup",
     ]
+  }
+
+  access_policy {
+    tenant_id = "${var.tenant_id}"
+    object_id = "abfa0a7c-a6b6-4736-8310-5855508787cd"
 
     certificate_permissions = [
       "create",
@@ -53,13 +64,35 @@ resource "azurerm_key_vault" "kv" {
       "getissuers",
       "import",
       "list",
-      "listissuers",
-      "managecontacts",
-      "manageissuers",
-      "setissuers",
-      "update",
+      "ListIssuers",
+      "SetIssuers",
+      "Update",
+      "ManageContacts",
+      "ManageIssuers",
+    ]
+
+    key_permissions = [
+      "create",
+      "list",
+      "get",
+      "delete",
+      "Update",
+      "Import",
+      "Recover",
+      "Backup",
+      "Restore",
+        ]
+
+    secret_permissions = [
+      "set",
+      "list",
+      "get",
+      "delete",
+      "Recover",
+      "Backup",
     ]
   }
+
 
   enabled_for_disk_encryption = true
   enabled_for_deployment = true
