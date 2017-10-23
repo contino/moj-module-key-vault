@@ -1,5 +1,7 @@
 provider "azurerm" {}
 
+data "azurerm_client_config" "current" {}
+
 resource "azurerm_key_vault" "kv" {
   name                = "${var.name}-${var.env}"
   location            = "${var.location}"
@@ -16,39 +18,15 @@ resource "azurerm_key_vault" "kv" {
     object_id = "${var.object_id}"
 
     certificate_permissions = [
-      "create",
-      "delete",
-      "deleteissuers",
-      "get",
-      "getissuers",
-      "import",
-      "list",
-      "ListIssuers",
-      "SetIssuers",
-      "Update",
-      "ManageContacts",
-      "ManageIssuers",
+      "all",
     ]
 
     key_permissions = [
-      "create",
-      "list",
-      "get",
-      "delete",
-      "Update",
-      "Import",
-      "Recover",
-      "Backup",
-      "Restore",
+      "all",
         ]
 
     secret_permissions = [
-      "set",
-      "list",
-      "get",
-      "delete",
-      "Recover",
-      "Backup",
+      "all",
     ]
   }
 
@@ -58,17 +36,12 @@ resource "azurerm_key_vault" "kv" {
 
     certificate_permissions = [
       "create",
-      "delete",
-      "deleteissuers",
       "get",
       "getissuers",
       "import",
       "list",
       "ListIssuers",
-      "SetIssuers",
       "Update",
-      "ManageContacts",
-      "ManageIssuers",
     ]
 
     key_permissions = [
@@ -78,9 +51,6 @@ resource "azurerm_key_vault" "kv" {
       "delete",
       "Update",
       "Import",
-      "Recover",
-      "Backup",
-      "Restore",
         ]
 
     secret_permissions = [
@@ -88,8 +58,6 @@ resource "azurerm_key_vault" "kv" {
       "list",
       "get",
       "delete",
-      "Recover",
-      "Backup",
     ]
   }
 
