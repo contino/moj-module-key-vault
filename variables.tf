@@ -17,12 +17,6 @@ variable "object_id" {
     description                 = "(Required) The object ID of a user, service principal or security group in the Azure Active Directory tenant for the vault. The object ID must be unique for the list of access policies."
 }
 
-variable "resource_group_name_suffix" {
-    type                        = "string"
-    default                     = "rg"
-    description                 = "The name of the Azure Resource Group for your application vault. Please use the default by not passing this parameter unless instructed otherwise."
-}
-
 variable "vault_name_suffix" {
     type                        = "string"
     default                     = "vault"
