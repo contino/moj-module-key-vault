@@ -3,9 +3,9 @@ provider "azurerm" {}
 data "azurerm_client_config" "current" {}
 
 resource "azurerm_key_vault" "kv" {
-  name                = "${var.product}-${var.vault_name_suffix}"
+  name                = "${var.product}-${var.component}-${var.vault_name_suffix}"
   location            = "${var.location}"
-  resource_group_name = "${var.product}-${var.env}"
+  resource_group_name = "${var.product}-${var.component}-${var.env}"
 
   sku {
     name = "standard"
