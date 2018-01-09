@@ -3,11 +3,6 @@ variable "product" {
     description                 = "(Required) The name of your application"
 }
 
-variable "component" {
-    type                        = "string"
-    description                 = "(Required) The name of your component - frontend, backend etc..."
-}
-
 variable "env" {
     type                        = "string"
     description                 = "(Required)"
