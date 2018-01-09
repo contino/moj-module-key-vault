@@ -3,9 +3,9 @@ provider "azurerm" {}
 data "azurerm_client_config" "current" {}
 
 resource "azurerm_key_vault" "kv" {
-  name                = "${var.name}"
+  name                = "${var.product}-${var.vault_name_suffix}"
   location            = "${var.location}"
-  resource_group_name = "${var.resource_group_name}"
+  resource_group_name = "${var.product}-${var.env}"
 
   sku {
     name = "standard"
@@ -55,7 +55,7 @@ resource "azurerm_key_vault" "kv" {
   access_policy {
 
     tenant_id = "${var.tenant_id}"
-    object_id = "${var.sites_obj_id}"
+    object_id = "${var.object_id}"
 
     certificate_permissions = [
       "create",
