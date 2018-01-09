@@ -1,4 +1,4 @@
-variable "product" {
+variable "vault_name" {
     type                        = "string"
     description                 = "(Required) The name of your application"
 }
