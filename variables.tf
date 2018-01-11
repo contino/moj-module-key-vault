@@ -8,6 +8,11 @@ variable "env" {
     description                 = "(Required)"
 }
 
+variable "resource_group_name" {
+    type                        = "string"
+    description                 = "(Required) The resource group you wish to put your Vault in. This has to exist already."
+}
+
 variable "tenant_id" {
     type                        = "string"
     description                 = "(Required) The Azure Active Directory tenant ID that should be used for authenticating requests to the key vault."
