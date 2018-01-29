@@ -40,7 +40,6 @@ resource "azurerm_key_vault" "kv" {
       "restore",
         ]
     secret_permissions = [
-      "create",
       "set",
       "list",
       "get",
