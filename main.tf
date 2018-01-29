@@ -2,7 +2,7 @@ data "azurerm_client_config" "current" {}
 
 resource "azurerm_key_vault" "kv" {
 
-  name                = "HMCTS-${var.product}-${var.env}"
+  name                = "${var.product}-${var.env}"
   location            = "${var.location}"
   resource_group_name = "${var.resource_group_name}"
 
