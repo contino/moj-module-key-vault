@@ -5,7 +5,9 @@ resource "azurerm_key_vault" "kv" {
   name                = "${var.product}-${var.env}"
   location            = "${var.location}"
   resource_group_name = "${var.resource_group_name}"
-
+  provisioner "local-exec" {
+    command = "sleep 60"
+  }
   sku {
     name = "standard"
   }
