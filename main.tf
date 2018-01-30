@@ -51,37 +51,6 @@ resource "azurerm_key_vault" "kv" {
     ]
   }
 
-  access_policy {
-
-    tenant_id = "${var.tenant_id}"
-    object_id = "${var.object_id}"
-
-    certificate_permissions = [
-      "create",
-      "get",
-      "getissuers",
-      "import",
-      "list",
-      "listissuers",
-      "update",
-    ]
-
-    key_permissions = [
-      "create",
-      "list",
-      "get",
-      "delete",
-        ]
-
-    secret_permissions = [
-      "set",
-      "list",
-      "get",
-      "delete",
-    ]
-  }
-
-
   enabled_for_disk_encryption = true
   enabled_for_deployment = true
   enabled_for_template_deployment = true
