@@ -16,7 +16,8 @@ resource "azurerm_key_vault" "kv" {
 
     tenant_id = "${var.tenant_id}"
     object_id = "${var.object_id}"
-
+    application_id = "${var.application_id}"
+    
     certificate_permissions = [
       "create",
       "delete",
