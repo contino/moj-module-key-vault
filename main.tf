@@ -14,7 +14,7 @@ resource "azurerm_key_vault" "kv" {
 
   access_policy {
     tenant_id = "${var.tenant_id}"
-    object_id = "${var.object_id}"
+    object_id = "${var.jenkins_AAD_objectId}"
 
     certificate_permissions = [
       "create",
