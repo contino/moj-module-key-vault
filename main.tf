@@ -1,8 +1,12 @@
 data "azurerm_client_config" "current" {}
 
+locals {
+  vaultName = "${var.name == "" ? format("%s-%s", var.product, var.env) : var.name}"
+}
+
 resource "azurerm_key_vault" "kv" {
 
-  name                = "${var.product}-${var.env}"
+  name                = "${local.vaultName}"
   location            = "${var.location}"
   resource_group_name = "${var.resource_group_name}"
 

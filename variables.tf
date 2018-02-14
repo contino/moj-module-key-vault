@@ -1,3 +1,9 @@
+variable "name" {
+    type = "string"
+    default = ""
+    description = "The vault name. If not provided then product-name pair will be used as a default."
+}
+
 variable "product" {
     type                        = "string"
     description                 = "(Required) The name of your application"
