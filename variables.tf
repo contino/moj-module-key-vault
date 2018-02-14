@@ -1,7 +1,7 @@
 variable "name" {
     type = "string"
     default = ""
-    description = "The vault name. If not provided then product-name pair will be used as a default."
+    description = "The vault name. If not provided then product-env pair will be used as a default."
 }
 
 variable "product" {
