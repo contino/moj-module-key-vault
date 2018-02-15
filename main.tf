@@ -58,6 +58,6 @@ resource "azurerm_key_vault" "kv" {
 
   tags {
     environment = "${var.env}"
-    name = "${local.vaultName}"
+    product = "${var.product}"
   }
 }
