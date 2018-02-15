@@ -1,8 +1,11 @@
 data "azurerm_client_config" "current" {}
 
-resource "azurerm_key_vault" "kv" {
+locals {
+  vaultName = "${var.name == "" ? format("%s-%s", var.product, var.env) : var.name}"
+}
 
-  name                = "${var.product}-${var.env}"
+resource "azurerm_key_vault" "kv" {
+  name                = "${local.vaultName}"
   location            = "${var.location}"
   resource_group_name = "${var.resource_group_name}"
 
@@ -30,6 +33,7 @@ resource "azurerm_key_vault" "kv" {
       "managecontacts",
       "manageissuers",
     ]
+
     key_permissions = [
       "create",
       "list",
@@ -39,7 +43,8 @@ resource "azurerm_key_vault" "kv" {
       "import",
       "backup",
       "restore",
-        ]
+    ]
+
     secret_permissions = [
       "set",
       "list",
@@ -54,5 +59,6 @@ resource "azurerm_key_vault" "kv" {
 
   tags {
     environment = "${var.env}"
+    product = "${var.product}"
   }
 }

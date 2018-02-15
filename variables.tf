@@ -1,3 +1,9 @@
+variable "name" {
+    type = "string"
+    default = ""
+    description = "The vault name (at most 24 characters - Azure Key Vault name limit). If not provided then product-env pair will be used as a default."
+}
+
 variable "product" {
     type                        = "string"
     description                 = "(Required) The name of your application"
