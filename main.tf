@@ -5,7 +5,6 @@ locals {
 }
 
 resource "azurerm_key_vault" "kv" {
-
   name                = "${local.vaultName}"
   location            = "${var.location}"
   resource_group_name = "${var.resource_group_name}"
@@ -34,6 +33,7 @@ resource "azurerm_key_vault" "kv" {
       "managecontacts",
       "manageissuers",
     ]
+
     key_permissions = [
       "create",
       "list",
@@ -43,7 +43,8 @@ resource "azurerm_key_vault" "kv" {
       "import",
       "backup",
       "restore",
-        ]
+    ]
+
     secret_permissions = [
       "set",
       "list",
