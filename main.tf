@@ -5,8 +5,8 @@ locals {
 }
 
 resource "azurerm_key_vault" "kv" {
-  name                = "${local.vaultName}"
-  location            = "${var.location}"
+  name = "${local.vaultName}"
+  location = "${var.location}"
   resource_group_name = "${var.resource_group_name}"
 
   sku {
@@ -50,6 +50,37 @@ resource "azurerm_key_vault" "kv" {
       "list",
       "get",
       "delete",
+    ]
+  }
+
+  access_policy {
+    object_id = "${var.product_group_object_id}"
+    tenant_id = "${var.tenant_id}"
+
+    key_permissions = [
+      "list",
+      "update",
+      "create",
+      "import",
+      "delete"
+    ]
+    certificate_permissions = [
+      "list",
+      "update",
+      "create",
+      "import",
+      "delete",
+      "managecontacts",
+      "manageissuers",
+      "getissuers",
+      "listissuers",
+      "setissuers",
+      "deleteissuers"
+    ]
+    secret_permissions = [
+      "list",
+      "set",
+      "delete"
     ]
   }
 
