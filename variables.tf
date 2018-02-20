@@ -40,3 +40,6 @@ variable "location" {
     description                 = "The name of the Azure region to deploy your vault to. Please use the default by not passing this parameter unless instructed otherwise."
 }
 
+variable "product_group_object_id" {
+    description = "The AD group of users that should have access to add secrets to the key vault, see the README on where to find this"
+}
