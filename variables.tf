@@ -45,5 +45,8 @@ variable "product_group_object_id" {
 }
 
 variable "common_tags" {
-  type    = "map"
+  type = "map"
+  default = {
+    "Team Name" = "pleaseTagMe"
+  }
 }
