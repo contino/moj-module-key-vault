@@ -43,3 +43,10 @@ variable "location" {
 variable "product_group_object_id" {
     description = "The AD group of users that should have access to add secrets to the key vault, see the README on where to find this"
 }
+
+variable "common_tags" {
+  type = "map"
+  default = {
+    "Team Name" = "pleaseTagMe"
+  }
+}
