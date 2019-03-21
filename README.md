@@ -5,7 +5,7 @@ This is a terraform module for creating an azure key vault resource
 ## Usage
 ```
 module "claim-store-vault" {
-  source              = "git@github.com:contino/moj-module-key-vault?ref=master"
+  source              = "git@github.com:hmcts/cnp-module-key-vault?ref=master"
   name                = "rhubarb-fe-${var.env}" // Max 24 characters
   product             = "${var.product}"
   env                 = "${var.env}"
