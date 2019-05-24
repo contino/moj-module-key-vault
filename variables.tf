@@ -45,6 +45,11 @@ variable "product_group_object_id" {
   description = "The AD group of users that should have access to add secrets to the key vault, see the README on where to find this"
 }
 
+variable "managed_identity_object_id" {
+  default = ""
+  description = "the object id of the managed identity - can be retrieved with az identity show --name <identity-name>-sandbox-mi -g managed-identities-<env>-rg --subscription DCD-CFTAPPS-<env> --query principalId -o tsv"
+}
+
 variable "common_tags" {
   type = "map"
 }
