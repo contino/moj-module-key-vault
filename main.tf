@@ -1,30 +1,27 @@
 locals {
-  vaultName = "${var.name == "" ? format("%s-%s", var.product, var.env) : var.name}"
+  vaultName = var.name == "" ? format("%s-%s", var.product, var.env) : var.name
 }
 
 resource "azurerm_key_vault" "kv" {
-  name                = "${local.vaultName}"
-  location            = "${var.location}"
-  resource_group_name = "${var.resource_group_name}"
+  name                = local.vaultName
+  location            = var.location
+  resource_group_name = var.resource_group_name
 
-  sku {
-    name = "${var.sku}"
-  }
-
-  tenant_id = "${var.tenant_id}"
+  sku_name = var.sku
+  tenant_id = var.tenant_id
 
   enabled_for_disk_encryption     = true
   enabled_for_deployment          = true
   enabled_for_template_deployment = true
 
-  tags = "${var.common_tags}"
+  tags = var.common_tags
 }
 
 resource "azurerm_key_vault_access_policy" "creator_access_policy" {
-  key_vault_id = "${azurerm_key_vault.kv.id}"
+  key_vault_id = azurerm_key_vault.kv.id
 
-  object_id = "${var.object_id}"
-  tenant_id = "${var.tenant_id}"
+  object_id = var.object_id
+  tenant_id = var.tenant_id
 
   certificate_permissions = [
     "create",
@@ -61,10 +58,10 @@ resource "azurerm_key_vault_access_policy" "creator_access_policy" {
 }
 
 resource "azurerm_key_vault_access_policy" "product_team_access_policy" {
-  key_vault_id = "${azurerm_key_vault.kv.id}"
+  key_vault_id = azurerm_key_vault.kv.id
 
-  object_id = "${var.product_group_object_id}"
-  tenant_id = "${var.tenant_id}"
+  object_id = var.product_group_object_id
+  tenant_id = var.tenant_id
 
   key_permissions = [
     "list",
