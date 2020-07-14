@@ -41,7 +41,7 @@ resource "azurerm_key_vault_access_policy" "managed_identity_access_policy" {
 resource "azurerm_key_vault_access_policy" "implicit_managed_identity_access_policy" {
   key_vault_id = "${azurerm_key_vault.kv.id}"
 
-  object_id = "${azurerm_user_assigned_identity.managed_identity.*.principal_id}"
+  object_id = "${azurerm_user_assigned_identity.managed_identity.principal_id}"
   tenant_id = "${var.tenant_id}"
 
   key_permissions = [
