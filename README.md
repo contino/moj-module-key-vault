@@ -46,10 +46,18 @@ Retrieve by name if you know the display name:
 $ az ad group list --query "[?displayName=='dcd_devops'].{DisplayName: displayName, ObjectID: objectId}" -o table
 ```
 
-### managed_identity_object_id
-If your application is running in kubernetes it will retrieve the secrets with a managed identity
+### managed_identity_object_ids
+If your application is running in kubernetes it will retrieve the secrets with a managed identity.
 
-In order to allow the managed identity access you need to add an additional variable to the module (`managed_identity_object_id`)
+In order to allow the managed identity access you need to add an additional variable to the module (`managed_identity_object_ids`).
+```
+module "claim-store-vault" {
+  source              = "git@github.com:hmcts/cnp-module-key-vault?ref=master"
+  ....
+  managed_identity_object_ids= ["<Id goes here>"]
+}
+
+```
 You may need to join the readers group for the subscription in order to see the manged identity
 
 It can be retrieved with: 
