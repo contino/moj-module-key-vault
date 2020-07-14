@@ -9,7 +9,7 @@ locals {
 
   name = "${var.product}-${var.env}-mi"
 
-  tags = var.common_tags
+  tags = "${var.common_tags}"
   count = "${var.create_managed_identity ? 1 : 0}"
 }
 
