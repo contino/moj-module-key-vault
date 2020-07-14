@@ -63,3 +63,8 @@ variable "managed_identity_object_ids" {
   type = "list"
   default = []
 }
+
+variable "create_managed_identity" {
+  type = "bool"
+  default = false
+}
