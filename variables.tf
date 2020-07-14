@@ -65,6 +65,5 @@ variable "managed_identity_object_ids" {
 }
 
 variable "create_managed_identity" {
-  type = "bool"
   default = false
 }
