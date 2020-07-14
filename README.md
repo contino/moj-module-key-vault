@@ -69,7 +69,7 @@ resource "azurerm_user_assigned_identity" "cmc-identity" {
 module "claim-store-vault" {
   source              = "git@github.com:hmcts/cnp-module-key-vault?ref=master"
   ....
-  managed_identity_object_ids= [${azurerm_user_assigned_identity.cmc-identity.principal_id}]
+  managed_identity_object_ids= ["${azurerm_user_assigned_identity.cmc-identity.principal_id}"]
 }
 
 ```
