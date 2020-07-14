@@ -1,5 +1,5 @@
 locals {
-  managed_identity_list = "${compact(concat(var.managed_identity_object_ids, list(var.managed_identity_object_id)))}"
+  managed_identity_list = "${compact(concat(list(var.managed_identity_object_id), var.managed_identity_object_ids))}"
 }
 resource "azurerm_key_vault_access_policy" "managed_identity_access_policy" {
   key_vault_id = "${azurerm_key_vault.kv.id}"
