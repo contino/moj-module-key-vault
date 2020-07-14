@@ -60,6 +60,6 @@ variable "sku" {
 }
 
 variable "managed_identity_object_ids" {
-  type = list(string)
+  type = "list"
   default = []
 }
