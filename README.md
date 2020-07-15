@@ -49,30 +49,36 @@ $ az ad group list --query "[?displayName=='dcd_devops'].{DisplayName: displayNa
 ### managed_identity_object_ids
 If your application is running in kubernetes it will retrieve the secrets with a managed identity.
 
-In order to allow the managed identity access you need to add an additional variable to the module (`managed_identity_object_ids`).
-
 Teams can use single Manage Identity for all the key vaults owned by a team.
 
-```
-resource "azurerm_user_assigned_identity" "cmc-identity" {
+In order to allow the managed identity access you need to either :
 
-  resource_group_name = "managed-identities-${var.env}-rg"
-  location            = "${var.location}"
+1. Add an additional variable to the module (`create_managed_identity`) which will create a managed identity and creates necessary access policy.
+  ```
+  module "claim-store-vault" {
+    source              = "git@github.com:hmcts/cnp-module-key-vault?ref=master"
+    ....
+    create_managed_identity = true
+  }
+  ```
+  Object Id and Client id are available in terraform output in this case.
 
-  name = "${var.product}-${var.env}-mi"
-  
-  tags = "${var.common_tags}"
-}
-```
+2. Add an additional variable to the module (`managed_identity_object_ids`) with existing managed identity.
 
-```
-module "claim-store-vault" {
-  source              = "git@github.com:hmcts/cnp-module-key-vault?ref=master"
-  ....
-  managed_identity_object_ids= ["${azurerm_user_assigned_identity.cmc-identity.principal_id}"]
-}
+   ```
+   data "azurerm_user_assigned_identity" "cmc-identity" {
+     name                = "${var.product}-${var.env}-mi"
+     resource_group_name = "managed-identities-${var.env}-rg"
+   }
+   
+   module "claim-store-vault" {
+     source              = "git@github.com:hmcts/cnp-module-key-vault?ref=master"
+     ....
+     managed_identity_object_ids = ["${data.azurerm_user_assigned_identity.cmc-identity.principal_id}"]
+   }
+   
+   ```
 
-```
 You may need to join the readers group for the subscription in order to see the manged identity
 
 It can be retrieved with: 
