@@ -63,13 +63,18 @@ In order to allow the managed identity access you need to either :
   ```
   Object Id and Client id are available in terraform output in this case.
 
-2. Add an additional variable to the module (`managed_identity_object_id`) with existing managed identity.
-   
+2. Add an additional variable to the module (`managed_identity_object_ids`) with existing managed identity.
+
    ```
+   data "azurerm_user_assigned_identity" "cmc-identity" {
+     name                = "${var.product}-${var.env}-mi"
+     resource_group_name = "managed-identities-${var.env}-rg"
+   }
+   
    module "claim-store-vault" {
      source              = "git@github.com:hmcts/cnp-module-key-vault?ref=master"
      ....
-     managed_identity_object_id = "<id goes here>"
+     managed_identity_object_ids = ["${data.azurerm_user_assigned_identity.cmc-identity.principal_id}"]
    }
    
    ```
