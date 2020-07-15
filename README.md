@@ -69,7 +69,7 @@ In order to allow the managed identity access you need to either :
    module "claim-store-vault" {
      source              = "git@github.com:hmcts/cnp-module-key-vault?ref=master"
      ....
-     managed_identity_object_id= "<id goes here>"
+     managed_identity_object_id = "<id goes here>"
    }
    
    ```
