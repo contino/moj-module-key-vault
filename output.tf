@@ -9,3 +9,11 @@ output "key_vault_id" {
 output "key_vault_name" {
   value = "${azurerm_key_vault.kv.name}"
 }
+
+output "managed_identity_objectid" {
+  value = "${azurerm_user_assigned_identity.managed_identity.*.principal_id}"
+}
+
+output "managed_identity_clientid" {
+  value = "${azurerm_user_assigned_identity.managed_identity.*.client_id}"
+}
