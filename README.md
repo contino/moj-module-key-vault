@@ -58,7 +58,7 @@ In order to allow the managed identity access you need to either :
   module "claim-store-vault" {
     source              = "git@github.com:hmcts/cnp-module-key-vault?ref=master"
     ....
-    create_managed_identity= true
+    create_managed_identity = true
   }
   ```
   Object Id and Client id are available in terraform output in this case.
