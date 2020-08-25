@@ -11,7 +11,12 @@ try {
     }
 
     stage('Terraform init') {
-      sh 'terraform init'
+      
+      sh '''
+      tfenv install
+      terraform --version
+      terraform init
+      '''
     }
 
     stage('Terraform Linting Checks') {
