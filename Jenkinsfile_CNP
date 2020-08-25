@@ -15,8 +15,8 @@ try {
       sh '''
       tfenv install
       terraform --version
+	  echo -e 'provider "azurerm" { \nfeatures {} \n }"' > provider.tf
       terraform init
-      echo -e 'provider "azurerm" { \nfeatures {} \n }"' > provider.tf
       '''
     }
 
