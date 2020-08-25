@@ -20,11 +20,10 @@ try {
     }
 
     stage('Terraform Linting Checks') {
-      sh 'terraform validate --no-color'
+      sh 'terraform validate'
     }
   }
 }
 catch (err) {
   throw err
 }
-
