@@ -43,7 +43,7 @@ variable "managed_identity_object_id" {
 }
 
 variable "common_tags" {
-  type = map
+  type = map(string)
 }
 
 variable "sku" {
