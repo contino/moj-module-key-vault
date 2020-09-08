@@ -52,7 +52,7 @@ variable "sku" {
 }
 
 variable "managed_identity_object_ids" {
-  type = list
+  type = list(string)
   default = []
 }
 

@@ -5,12 +5,12 @@ locals {
   resource "azurerm_user_assigned_identity" "managed_identity" {
 
   resource_group_name = "managed-identities-${var.env}-rg"
-  location            = "${var.location}"
+  location            = var.location
 
   name = "${var.product}-${var.env}-mi"
 
-  tags = "${var.common_tags}"
-  count = "${var.create_managed_identity ? 1 : 0}"
+  tags = var.common_tags
+  count = var.create_managed_identity ? 1 : 0
 }
 
 resource "azurerm_key_vault_access_policy" "managed_identity_access_policy" {
@@ -38,10 +38,10 @@ resource "azurerm_key_vault_access_policy" "managed_identity_access_policy" {
 
 
 resource "azurerm_key_vault_access_policy" "implicit_managed_identity_access_policy" {
-  key_vault_id = "${azurerm_key_vault.kv.id}"
+  key_vault_id = azurerm_key_vault.kv.id
 
-  object_id = "${azurerm_user_assigned_identity.managed_identity[0].principal_id}"
-  tenant_id = "${var.tenant_id}"
+  object_id = azurerm_user_assigned_identity.managed_identity[0].principal_id
+  tenant_id = var.tenant_id
 
   key_permissions = [
     "get",
@@ -58,5 +58,5 @@ resource "azurerm_key_vault_access_policy" "implicit_managed_identity_access_pol
     "list",
   ]
 
-  count = "${var.create_managed_identity ? 1 : 0}"
+  count = var.create_managed_identity ? 1 : 0
 }
