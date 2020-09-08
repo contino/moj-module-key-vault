@@ -38,7 +38,7 @@ variable "product_group_object_id" {
 }
 
 variable "managed_identity_object_id" {
-  default = ""
+  default     = ""
   description = "the object id of the managed identity - can be retrieved with az identity show --name <identity-name>-sandbox-mi -g managed-identities-<env>-rg --subscription DCD-CFTAPPS-<env> --query principalId -o tsv"
 }
 
@@ -52,7 +52,7 @@ variable "sku" {
 }
 
 variable "managed_identity_object_ids" {
-  type = list(string)
+  type    = list(string)
   default = []
 }
 
