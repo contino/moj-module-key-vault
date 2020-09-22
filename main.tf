@@ -7,9 +7,8 @@ resource "azurerm_key_vault" "kv" {
   location            = "${var.location}"
   resource_group_name = "${var.resource_group_name}"
 
-  sku {
-    name = "${var.sku}"
-  }
+  sku_name = var.sku
+  
 
   tenant_id = "${var.tenant_id}"
 
