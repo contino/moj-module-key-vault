@@ -59,3 +59,7 @@ variable "managed_identity_object_ids" {
 variable "create_managed_identity" {
   default = false
 }
+
+variable "soft_delete_enabled" {
+  default = true
+}
