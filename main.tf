@@ -14,6 +14,7 @@ resource "azurerm_key_vault" "kv" {
   enabled_for_deployment          = true
   enabled_for_template_deployment = true
   soft_delete_enabled             = var.soft_delete_enabled
+  soft_delete_retention_days      = 90
 
   tags = var.common_tags
 }
