@@ -63,3 +63,7 @@ variable "create_managed_identity" {
 variable "soft_delete_enabled" {
   default = true
 }
+
+variable "developers_group" {
+  default = "DTS CFT Developers"
+}

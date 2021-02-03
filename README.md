@@ -16,14 +16,27 @@ module "claim-store-vault" {
 }
 ```
 
+## Reading secrets
+
+All developers have access to read non production secrets if they are a member of the `DTS CFT Developers` Azure AD group
+
+Reading of production secrets is discouraged, in general you should overwrite the secret rather than trying to read it.
+
+_If you really really need that secret then ask the Platform Operations team to get it for you._
+
+Reading a secret via Azure CLI:
+```bash
+$ az keyvault secret show --vault-name $VAULT --name $SECRET
+```
+
 ## Writing secrets to key vaults
 The product group for the key vault have permissions to update / write / list / delete secrets in all environments
 This should be your teams AD group, it's controlled by the `product_group_object_id` variable
 
-You should always write secrets via the command line, as you normally don't have read access on the production vault but you can still write the secrets via CLI.
+You should always write secrets via the command line, as you normally don't have read access on the production vault, but you can still write the secrets via CLI.
 
 ```bash
-$ az keyvault secret set --vault-name vault-name --name name --value value
+$ az keyvault secret set --vault-name $VAULT_NAME --name "${SECRET_NAME}" --value "${SECRET_VALUE}"
 ```
 
 More docs can be found here:
@@ -66,7 +79,7 @@ create_managed_identity = true
 Object Id and Client id are available in terraform output.
 
 #### Use an Existing MI
-Add an additional variable to the module (`managed_identity_object_ids`) with existing managed identity.
+Add the `managed_identity_object_ids` variable to the module with an existing managed identity.
 
 ```
 data "azurerm_user_assigned_identity" "cmc-identity" {
