@@ -1,5 +1,5 @@
 data "azuread_group" "developers" {
-  name = var.developers_group
+  display_name = var.developers_group
 }
 
 locals {
