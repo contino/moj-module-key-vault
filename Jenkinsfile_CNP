@@ -10,16 +10,18 @@ node {
     }
 
     stage('Terraform init') {
-        sh '''
-      tfenv install
-      terraform --version
-      mv provider-ci-only.tf.txt provider.tf
-      terraform init
-      '''
+        dir('example/simple') {
+            sh '''
+              tfenv install
+              terraform --version
+              terraform init
+            '''
+        }
     }
 
     stage('Terraform Linting Checks') {
         sh 'terraform validate'
+
+        sh 'terraform fmt --check --recursive'
     }
 }
-
