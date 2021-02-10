@@ -1,6 +1,8 @@
 #!groovy
 @Library('Infrastructure') _
 
+def exampleModule = 'example/simple'
+
 node {
     env.PATH = "$env.PATH:/usr/local/bin"
 
@@ -10,7 +12,7 @@ node {
     }
 
     stage('Terraform init') {
-        dir('example/simple') {
+        dir(exampleModule) {
             sh '''
               tfenv install
               terraform --version
@@ -20,7 +22,9 @@ node {
     }
 
     stage('Terraform Linting Checks') {
-        sh 'terraform validate'
+        dir(exampleModule) {
+            sh 'terraform validate'
+        }
 
         sh 'terraform fmt --check --recursive'
     }
