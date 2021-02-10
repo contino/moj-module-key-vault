@@ -3,16 +3,15 @@
 This is a terraform module for creating an azure key vault resource
 
 ## Usage
-```
+```hcl
 module "claim-store-vault" {
   source              = "git@github.com:hmcts/cnp-module-key-vault?ref=master"
   name                = "rhubarb-fe-${var.env}" // Max 24 characters
-  product             = "${var.product}"
-  env                 = "${var.env}"
-  tenant_id           = "${var.tenant_id}"
-  object_id           = "${var.jenkins_AAD_objectId}"
-  resource_group_name = "${module.<another-module>.resource_group_name}"
-  product_group_object_id = "<uuid>"
+  product             = var.product
+  env                 = var.env
+  resource_group_name = azurerm_resource_group.rg.name
+  product_group_name  = "Your AAD group" # e.g. MI Data Platform, or dcd_cmc
+  common_tags         = var.common_tags
 }
 ```
 
@@ -42,7 +41,10 @@ $ az keyvault secret set --vault-name $VAULT_NAME --name "${SECRET_NAME}" --valu
 More docs can be found here:
 https://docs.microsoft.com/en-us/cli/azure/keyvault/secret?view=azure-cli-latest
 
-### product_group_object_id
+### product_group_object_id (deprecated)
+
+_Note: Historically this module couldn't look up groups by display name, that is now available in `product_group_name`_
+
 The product group object id is the Azure AD group object_id of users
 who should be allowed to write secrets into the vault
 (note they can't read the secrets after writing).
@@ -69,11 +71,11 @@ In order to allow the managed identity access you need to either :
 #### Create a new Managed Identity
 
 Add an additional variable to the module (`create_managed_identity`) which will create a managed identity and creates necessary access policy.
-```
+```hcl
 module "claim-store-vault" {
-source              = "git@github.com:hmcts/cnp-module-key-vault?ref=master"
-....
-create_managed_identity = true
+  source              = "git@github.com:hmcts/cnp-module-key-vault?ref=master"
+ #...
+  create_managed_identity = true
 }
 ```
 Object Id and Client id are available in terraform output.
@@ -81,16 +83,16 @@ Object Id and Client id are available in terraform output.
 #### Use an Existing MI
 Add the `managed_identity_object_ids` variable to the module with an existing managed identity.
 
-```
+```hcl
 data "azurerm_user_assigned_identity" "cmc-identity" {
  name                = "${var.product}-${var.env}-mi"
  resource_group_name = "managed-identities-${var.env}-rg"
 }
 
-module "claim-store-vault" {
- source              = "git@github.com:hmcts/cnp-module-key-vault?ref=master"
- ....
- managed_identity_object_ids = ["${data.azurerm_user_assigned_identity.cmc-identity.principal_id}"]
+module "claim-store-vault" { 
+  source              = "git@github.com:hmcts/cnp-module-key-vault?ref=master"
+  #...
+  managed_identity_object_ids = [data.azurerm_user_assigned_identity.cmc-identity.principal_id]
 }
 
 ```

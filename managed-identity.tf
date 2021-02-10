@@ -16,7 +16,7 @@ resource "azurerm_user_assigned_identity" "managed_identity" {
 resource "azurerm_key_vault_access_policy" "managed_identity_access_policy" {
   key_vault_id = azurerm_key_vault.kv.id
   object_id    = each.value
-  tenant_id    = var.tenant_id
+  tenant_id    = data.azurerm_client_config.current.tenant_id
 
   key_permissions = [
     "get",
@@ -41,7 +41,7 @@ resource "azurerm_key_vault_access_policy" "implicit_managed_identity_access_pol
   key_vault_id = azurerm_key_vault.kv.id
 
   object_id = azurerm_user_assigned_identity.managed_identity[0].principal_id
-  tenant_id = var.tenant_id
+  tenant_id = data.azurerm_client_config.current.tenant_id
 
   key_permissions = [
     "get",

@@ -16,11 +16,13 @@ variable "resource_group_name" {
 }
 
 variable "tenant_id" {
-  description = "(Required) The Azure Active Directory tenant ID that should be used for authenticating requests to the key vault."
+  description = "(deprecated) does nothing"
+  default     = ""
 }
 
 variable "object_id" {
-  description = "(Required) The Azure AD object ID of a user, service principal or security group in the Azure Active Directory tenant for the vault. The object ID must be unique for the list of access policies."
+  description = "(deprecated) does nothing"
+  default     = ""
 }
 
 variable "vault_name_suffix" {
@@ -34,7 +36,13 @@ variable "location" {
 }
 
 variable "product_group_object_id" {
-  description = "The AD group of users that should have access to add secrets to the key vault, see the README on where to find this"
+  description = "(deprecated) The AD group of users that should have access to add secrets to the key vault, see the README on where to find this"
+  default     = ""
+}
+
+variable "product_group_name" {
+  description = "The AD group of users that should have access to add secrets to the key vault"
+  default     = ""
 }
 
 variable "managed_identity_object_id" {
@@ -61,7 +69,8 @@ variable "create_managed_identity" {
 }
 
 variable "soft_delete_enabled" {
-  default = true
+  default     = true
+  description = "(deprecated) does nothing"
 }
 
 variable "developers_group" {
