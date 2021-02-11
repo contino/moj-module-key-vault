@@ -7,10 +7,13 @@ resource "azurerm_resource_group" "rg" {
   location = var.location
 }
 
+data "azurerm_client_config" "current" {}
+
 module "vault" {
   source              = "../../"
   product             = var.product
   env                 = var.env
+  object_id           = data.azurerm_client_config.current.object_id
   resource_group_name = azurerm_resource_group.rg.name
   product_group_name  = "DTS Platform Operations" # e.g. MI Data Platform, or dcd_cmc
   common_tags         = var.common_tags
