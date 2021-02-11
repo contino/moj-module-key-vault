@@ -21,7 +21,7 @@ variable "tenant_id" {
 }
 
 variable "object_id" {
-  description = "(deprecated) does nothing"
+  description = "(Required) The Azure Active Directory tenant ID that should be used for authenticating requests to the key vault."
   default     = ""
 }
 
