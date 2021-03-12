@@ -58,5 +58,6 @@ resource "azurerm_key_vault_access_policy" "creator_access_policy" {
     "get",
     "delete",
     "recover",
+    "purge",
   ]
 }
