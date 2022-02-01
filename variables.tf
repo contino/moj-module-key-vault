@@ -78,6 +78,6 @@ variable "developers_group" {
 }
 
 variable "enable_diagnostic_setting" {
-  default     = false
+  default     = true
   description = "Enables Diagnostic Settings to log Key Vault activity."
 }
