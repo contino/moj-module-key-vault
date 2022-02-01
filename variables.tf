@@ -76,3 +76,8 @@ variable "soft_delete_enabled" {
 variable "developers_group" {
   default = "DTS CFT Developers"
 }
+
+variable "enable_diagnostic_setting" {
+  default     = false
+  description = "Enables Diagnostic Settings to log Key Vault activity."
+}
