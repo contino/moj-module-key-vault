@@ -15,30 +15,30 @@ resource "azurerm_key_vault_access_policy" "product_team_access_policy" {
   tenant_id = data.azurerm_client_config.current.tenant_id
 
   key_permissions = [
-    "list",
-    "update",
-    "create",
-    "import",
-    "delete",
+    "List",
+    "Update",
+    "Create",
+    "Import",
+    "Delete",
   ]
 
   certificate_permissions = [
-    "list",
-    "update",
-    "create",
-    "import",
-    "delete",
-    "managecontacts",
-    "manageissuers",
-    "getissuers",
-    "listissuers",
-    "setissuers",
-    "deleteissuers",
+    "List",
+    "Update",
+    "Create",
+    "Import",
+    "Delete",
+    "ManageContacts",
+    "ManageIssuers",
+    "GetIssuers",
+    "ListIssuers",
+    "SetIssuers",
+    "DeleteIssuers",
   ]
 
   secret_permissions = [
-    "list",
-    "set",
-    "delete",
+    "List",
+    "Set",
+    "Delete",
   ]
 }

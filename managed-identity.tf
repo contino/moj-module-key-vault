@@ -19,18 +19,18 @@ resource "azurerm_key_vault_access_policy" "managed_identity_access_policy" {
   tenant_id    = data.azurerm_client_config.current.tenant_id
 
   key_permissions = [
-    "get",
-    "list",
+    "Get",
+    "List",
   ]
 
   certificate_permissions = [
-    "get",
-    "list",
+    "Get",
+    "List",
   ]
 
   secret_permissions = [
-    "get",
-    "list",
+    "Get",
+    "List",
   ]
 
   for_each = local.managed_identity_list
@@ -44,18 +44,18 @@ resource "azurerm_key_vault_access_policy" "implicit_managed_identity_access_pol
   tenant_id = data.azurerm_client_config.current.tenant_id
 
   key_permissions = [
-    "get",
-    "list",
+    "Get",
+    "List",
   ]
 
   certificate_permissions = [
-    "get",
-    "list",
+    "Get",
+    "List",
   ]
 
   secret_permissions = [
-    "get",
-    "list",
+    "Get",
+    "List",
   ]
 
   count = var.create_managed_identity ? 1 : 0
