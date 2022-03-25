@@ -27,37 +27,37 @@ resource "azurerm_key_vault_access_policy" "creator_access_policy" {
   tenant_id = data.azurerm_client_config.current.tenant_id
 
   certificate_permissions = [
-    "create",
-    "delete",
-    "deleteissuers",
-    "get",
-    "getissuers",
-    "import",
-    "list",
-    "listissuers",
-    "setissuers",
-    "update",
-    "managecontacts",
-    "manageissuers",
+    "Create",
+    "Delete",
+    "DeleteIssuers",
+    "Get",
+    "GetIssuers",
+    "Import",
+    "List",
+    "ListIssuers",
+    "SetIssuers",
+    "Update",
+    "ManageContacts",
+    "ManageIssuers",
   ]
 
   key_permissions = [
-    "create",
-    "list",
-    "get",
-    "delete",
-    "update",
-    "import",
-    "backup",
-    "restore",
+    "Create",
+    "List",
+    "Get",
+    "Delete",
+    "Update",
+    "Import",
+    "Backup",
+    "Restore",
   ]
 
   secret_permissions = [
-    "set",
-    "list",
-    "get",
-    "delete",
-    "recover",
-    "purge",
+    "Set",
+    "List",
+    "Get",
+    "Delete",
+    "Recover",
+    "Purge",
   ]
 }
