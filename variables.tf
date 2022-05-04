@@ -76,3 +76,13 @@ variable "soft_delete_enabled" {
 variable "developers_group" {
   default = "DTS CFT Developers"
 }
+
+variable "network_acls_allowed_ip_ranges" {
+  description = "IP Address space Allowed"
+  type        = list(string)
+  default     = []
+}
+
+variable "network_acls_default_action" {
+  default = "Deny"
+}
