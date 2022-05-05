@@ -88,5 +88,7 @@ variable "network_acls_default_action" {
 }
 
 variable "network_acls_allowed_subnet_id" {
-  default = []
+  description = "Subnet id allowed"
+  type        = list(string)
+  default     = []
 }
