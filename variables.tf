@@ -86,3 +86,7 @@ variable "network_acls_allowed_ip_ranges" {
 variable "network_acls_default_action" {
   default = "Deny"
 }
+
+variable "network_acls_allowed_subnet_id" {
+  default = []
+}
