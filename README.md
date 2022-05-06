@@ -25,7 +25,8 @@ module "claim-store-vault" {
 The module creates the following permissions:
  - Jenkins access to Keyvault
  - Managed Identity ($product)-$env-mi
- - Product team/developers access 
+ - Product team/developers access
+ 
 ## Reading secrets
 
 All developers have access to read non production secrets if they are a member of the `DTS CFT Developers` Azure AD group
