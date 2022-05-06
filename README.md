@@ -12,10 +12,20 @@ module "claim-store-vault" {
   object_id           = var.jenkins_AAD_objectId
   resource_group_name = azurerm_resource_group.rg.name
   product_group_name  = "Your AAD group" # e.g. MI Data Platform, or dcd_cmc
+  create_managed_identity = true or false
+  network_acls_allowed_subnet_id = [Jenkins Subnet id, other subnet id]
+  network_acls_allowed_ip_ranges = [Allowed ACL IPs]
+  network_acls_default_action = "Deny" or "Allow" # Deny by default
   common_tags         = var.common_tags
 }
 ```
 
+## Notes
+
+The module would create the follwoing permisions:
+ - Jenkins access to Keyvault
+ - Managed Identity ($product)-$env-mi
+ - Product team/developers access 
 ## Reading secrets
 
 All developers have access to read non production secrets if they are a member of the `DTS CFT Developers` Azure AD group
