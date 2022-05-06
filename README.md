@@ -22,7 +22,7 @@ module "claim-store-vault" {
 
 ## Notes
 
-The module would create the follwoing permisions:
+The module creates the following permissions:
  - Jenkins access to Keyvault
  - Managed Identity ($product)-$env-mi
  - Product team/developers access 
