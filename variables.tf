@@ -76,3 +76,18 @@ variable "soft_delete_enabled" {
 variable "developers_group" {
   default = "DTS CFT Developers"
 }
+
+variable "enable_rbac_authorization" {
+  type        = bool
+  description = "Boolean flag to specify whether Azure Key Vault uses Role Based Access Control (RBAC) for authorization of data actions. Defaults to false."
+  default     = false
+}
+
+variable "additional_role_assignments" {
+  type = map(object({
+    object_id = string
+    role_name = string
+  }))
+  description = "Additional Role Assignments to the Key Vault using pre-defined roles from Azure"
+  default     = {}
+}

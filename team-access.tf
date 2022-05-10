@@ -9,6 +9,8 @@ locals {
 }
 
 resource "azurerm_key_vault_access_policy" "product_team_access_policy" {
+  count = var.enable_rbac_authorization == false ? 1 : 0
+
   key_vault_id = azurerm_key_vault.kv.id
 
   object_id = local.product_group_object_id
@@ -41,4 +43,12 @@ resource "azurerm_key_vault_access_policy" "product_team_access_policy" {
     "Set",
     "Delete",
   ]
+}
+
+resource "azurerm_role_assignment" "this" {
+  count = var.enable_rbac_authorization == true ? 1 : 0
+
+  scope                = azurerm_key_vault.kv.id
+  role_definition_name = "Key Vault Administrator"
+  principal_id         = local.product_group_object_id
 }

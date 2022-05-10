@@ -6,3 +6,4 @@ terraform.tfstate*
 tfplan
 *.tfstate.lock.info
 *.iml
+.terraform.lock.hcl

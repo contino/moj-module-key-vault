@@ -17,6 +17,8 @@ resource "azurerm_key_vault" "kv" {
   enabled_for_template_deployment = true
   soft_delete_retention_days      = 90
 
+  enable_rbac_authorization = var.enable_rbac_authorization
+
   tags = var.common_tags
 }
 
