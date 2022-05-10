@@ -1,4 +1,4 @@
-resource "azurerm_role_assignment" "github_runner" {
+resource "azurerm_role_assignment" "this" {
   for_each = var.role_assignments
 
   scope                = azurerm_key_vault.kv.id
