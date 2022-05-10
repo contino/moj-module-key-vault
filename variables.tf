@@ -76,3 +76,12 @@ variable "soft_delete_enabled" {
 variable "developers_group" {
   default = "DTS CFT Developers"
 }
+
+variable "role_assignments" {
+  type = map(object({
+    object_id = string
+    role_name = string
+  }))
+  description = "Role Assignments to the Key Vault using pre-defined roles from Azure"
+  default     = {}
+}
