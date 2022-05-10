@@ -15,7 +15,7 @@ module "claim-store-vault" {
   create_managed_identity = true or false
   network_acls_allowed_subnet_id = [Jenkins Subnet id, other subnet id]
   network_acls_allowed_ip_ranges = [Allowed ACL IPs]
-  network_acls_default_action = "Deny" or "Allow" # Deny by default
+  network_acls_default_action = "Deny" or "Allow" # Allow by default
   common_tags         = var.common_tags
 }
 ```
