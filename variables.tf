@@ -92,3 +92,4 @@ variable "network_acls_allowed_subnet_ids" {
   type        = list(string)
   default     = []
 }
+variable "mgmt_subscription_id" {}
