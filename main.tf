@@ -4,6 +4,19 @@ locals {
 
 data "azurerm_client_config" "current" {}
 
+provider "azurerm" {
+  alias           = "mgmt"
+  subscription_id = var.mgmt_subscription_id
+  features {}
+}
+
+data "azurerm_subnet" "jenkins_subnet" {
+  provider             = azurerm.mgmt
+  name                 = "iaas"
+  virtual_network_name = var.env == "sbox" ? "ss-ptlsbox-vnet" : "ss-ptl-vnet"
+  resource_group_name  = var.env == "sbox" ? "ss-ptlsbox-network-rg" : "ss-ptl-network-rg"
+}
+
 resource "azurerm_key_vault" "kv" {
   name                = local.vaultName
   location            = var.location

@@ -73,10 +73,6 @@ variable "soft_delete_enabled" {
   description = "(deprecated) does nothing"
 }
 
-# variable "purge_protection" {
-#   default     = true
-#   description = "Purge Protection Enabled"
-# }
 variable "developers_group" {
   default = "DTS CFT Developers"
 }
@@ -91,8 +87,8 @@ variable "network_acls_default_action" {
   default = "Allow"
 }
 
-variable "network_acls_allowed_subnet_id" {
-  description = "Subnet id allowed"
+variable "network_acls_allowed_subnet_ids" {
+  description = "Allowed subnet id(s)"
   type        = list(string)
   default     = []
 }
