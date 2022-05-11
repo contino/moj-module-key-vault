@@ -100,7 +100,7 @@ data "azurerm_subnet" "jenkins_subnet" {
 module "this" {
   source              = "git@github.com:hmcts/cnp-module-key-vault?ref=master"
  #...
-  network_acls_allowed_subnet_id = [data.azurerm_subnet.jenkins_subnet.id] 
+  network_acls_allowed_subnet_ids = [data.azurerm_subnet.jenkins_subnet.id] 
   network_acls_allowed_ip_ranges = ["IPs"]
   network_acls_default_action = "Deny" # Allow by default
 }
