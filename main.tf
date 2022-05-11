@@ -22,7 +22,7 @@ resource "azurerm_key_vault" "kv" {
     bypass                     = "AzureServices"
     default_action             = var.network_acls_default_action # Default is "Allow" for compatibility
     ip_rules                   = var.network_acls_allowed_ip_ranges
-    virtual_network_subnet_ids = var.network_acls_allowed_subnet_id
+    virtual_network_subnet_ids = var.network_acls_allowed_subnet_ids
   }
 
   tags = var.common_tags
