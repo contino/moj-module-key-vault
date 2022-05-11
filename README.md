@@ -22,7 +22,7 @@ module "claim-store-vault" {
 
 ## Notes
 
-The module creates the follwoing permisions:
+The module creates the following permissions:
  - Jenkins access to Keyvault
  - Managed Identity ($product)-$env-mi
  - Product team/developers access
@@ -70,6 +70,15 @@ $ az ad group list --query "[?contains(displayName, 'dcd_')].{DisplayName: displ
 Retrieve by name if you know the display name:
 ```bash
 $ az ad group list --query "[?displayName=='dcd_devops'].{DisplayName: displayName, ObjectID: objectId}" -o table
+```
+
+## Keyvault access using Access Control List
+Allow the jenkins subnet id e.g [data.azurerm_subnet.jenkins_subnet.id] and others
+Allow the listed set of IPs
+```
+network_acls_allowed_subnet_id = [Jenkins Subnet id, other subnet id] 
+network_acls_allowed_ip_ranges = [Allowed ACL IPs]
+network_acls_default_action = "Deny" or "Allow" # Allow by default
 ```
 
 ## Application access using Managed Identities
