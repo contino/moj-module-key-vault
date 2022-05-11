@@ -134,7 +134,7 @@ data "azurerm_user_assigned_identity" "cmc-identity" {
  resource_group_name = "managed-identities-${var.env}-rg"
 }
 
-module "claim-store-vault" { 
+module "this" { 
   source              = "git@github.com:hmcts/cnp-module-key-vault?ref=master"
   #...
   managed_identity_object_ids = [data.azurerm_user_assigned_identity.cmc-identity.principal_id]
