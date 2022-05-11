@@ -16,6 +16,14 @@ resource "azurerm_key_vault" "kv" {
   enabled_for_deployment          = true
   enabled_for_template_deployment = true
   soft_delete_retention_days      = 90
+  purge_protection_enabled        = var.purge_protection_enabled
+
+  network_acls {
+    bypass                     = "AzureServices"
+    default_action             = var.network_acls_default_action # Default is "Allow" for compatibility
+    ip_rules                   = var.network_acls_allowed_ip_ranges
+    virtual_network_subnet_ids = var.network_acls_allowed_subnet_ids
+  }
 
   tags = var.common_tags
 }
