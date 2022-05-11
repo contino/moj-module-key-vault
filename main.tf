@@ -4,19 +4,6 @@ locals {
 
 data "azurerm_client_config" "current" {}
 
-provider "azurerm" {
-  alias           = "mgmt"
-  subscription_id = var.mgmt_subscription_id
-  features {}
-}
-
-data "azurerm_subnet" "jenkins_subnet" {
-  provider             = azurerm.mgmt
-  name                 = "iaas"
-  virtual_network_name = var.env == "sbox" ? "ss-ptlsbox-vnet" : "ss-ptl-vnet"
-  resource_group_name  = var.env == "sbox" ? "ss-ptlsbox-network-rg" : "ss-ptl-network-rg"
-}
-
 resource "azurerm_key_vault" "kv" {
   name                = local.vaultName
   location            = var.location
@@ -29,7 +16,7 @@ resource "azurerm_key_vault" "kv" {
   enabled_for_deployment          = true
   enabled_for_template_deployment = true
   soft_delete_retention_days      = 90
-  purge_protection_enabled        = true
+  purge_protection_enabled        = var.purge_protection_enabled
 
   network_acls {
     bypass                     = "AzureServices"

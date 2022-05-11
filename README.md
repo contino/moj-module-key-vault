@@ -4,7 +4,7 @@ This is a terraform module for creating an azure key vault resource
 
 ## Usage
 ```hcl
-module "claim-store-vault" {
+module "this" {
   source              = "git@github.com:hmcts/cnp-module-key-vault?ref=master"
   name                = "rhubarb-fe-${var.env}" // Max 24 characters
   product             = var.product
@@ -12,11 +12,6 @@ module "claim-store-vault" {
   object_id           = var.jenkins_AAD_objectId
   resource_group_name = azurerm_resource_group.rg.name
   product_group_name  = "Your AAD group" # e.g. MI Data Platform, or dcd_cmc
-  create_managed_identity = true or false
-  network_acls_allowed_subnet_id = [Jenkins Subnet id, other subnet id]
-  network_acls_allowed_ip_ranges = [Allowed ACL IPs]
-  network_acls_default_action = "Deny" or "Allow" # Allow by default
-  common_tags         = var.common_tags
 }
 ```
 
@@ -26,6 +21,7 @@ The module creates the following permissions:
  - Jenkins access to Keyvault
  - Managed Identity ($product)-$env-mi
  - Product team/developers access
+
 ## Reading secrets
 
 All developers have access to read non production secrets if they are a member of the `DTS CFT Developers` Azure AD group
@@ -75,10 +71,39 @@ $ az ad group list --query "[?displayName=='dcd_devops'].{DisplayName: displayNa
 ## Keyvault access using Access Control List
 Allow the jenkins subnet id e.g [data.azurerm_subnet.jenkins_subnet.id] and others
 Allow the listed set of IPs
-```
-network_acls_allowed_subnet_id = [Jenkins Subnet id, other subnet id] 
-network_acls_allowed_ip_ranges = [Allowed ACL IPs]
-network_acls_default_action = "Deny" or "Allow" # Allow by default
+```hcl
+# Set by the Jenkins pipeline
+variable "mgmt_subscription_id" {}
+
+provider "azurerm" {
+  alias           = "mgmt"
+  subscription_id = var.mgmt_subscription_id
+  features {}
+}
+
+# for SDS
+data "azurerm_subnet" "jenkins_subnet" {
+  provider             = azurerm.mgmt
+  name                 = "iaas"
+  virtual_network_name = var.env == "sbox" ? "ss-ptlsbox-vnet" : "ss-ptl-vnet"
+  resource_group_name  = var.env == "sbox" ? "ss-ptlsbox-network-rg" : "ss-ptl-network-rg"
+}
+
+# for CFT
+data "azurerm_subnet" "jenkins_subnet" {
+  provider             = azurerm.mgmt
+  name                 = "iaas"
+  virtual_network_name = "cft-ptl-vnet"
+  resource_group_name  = "cft-ptl-network-rg"
+}
+
+module "this" {
+  source              = "git@github.com:hmcts/cnp-module-key-vault?ref=master"
+ #...
+  network_acls_allowed_subnet_id = [data.azurerm_subnet.jenkins_subnet.id] 
+  network_acls_allowed_ip_ranges = ["IPs"]
+  network_acls_default_action = "Deny" # Allow by default
+}
 ```
 
 ## Application access using Managed Identities
@@ -92,7 +117,7 @@ In order to allow the managed identity access you need to either :
 
 Add an additional variable to the module (`create_managed_identity`) which will create a managed identity and creates necessary access policy.
 ```hcl
-module "claim-store-vault" {
+module "this" {
   source              = "git@github.com:hmcts/cnp-module-key-vault?ref=master"
  #...
   create_managed_identity = true
