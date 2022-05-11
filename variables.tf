@@ -73,6 +73,10 @@ variable "soft_delete_enabled" {
   description = "(deprecated) does nothing"
 }
 
+# variable "purge_protection" {
+#   default     = true
+#   description = "Purge Protection Enabled"
+# }
 variable "developers_group" {
   default = "DTS CFT Developers"
 }
