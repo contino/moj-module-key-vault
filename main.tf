@@ -58,6 +58,12 @@ resource "azurerm_key_vault_access_policy" "creator_access_policy" {
     "Import",
     "Backup",
     "Restore",
+    "Decrypt",
+    "Encrypt",
+    "UnwrapKey",
+    "WrapKey",
+    "Sign",
+    "Verify",
   ]
 
   secret_permissions = [
