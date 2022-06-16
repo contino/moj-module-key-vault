@@ -60,12 +60,12 @@ Useful commands for finding your group object id:
 
 List all reform groups:
 ```bash
-$ az ad group list --query "[?contains(displayName, 'dcd_')].{DisplayName: displayName, ObjectID: objectId}" -o table
+$ az ad group list --query "[?contains(displayName, 'dcd_')].{DisplayName: displayName, id: id}" -o table
 ```
 
 Retrieve by name if you know the display name:
 ```bash
-$ az ad group list --query "[?displayName=='dcd_devops'].{DisplayName: displayName, ObjectID: objectId}" -o table
+$ az ad group list --query "[?displayName=='dcd_devops'].{DisplayName: displayName, id: id}" -o table
 ```
 
 ## Keyvault access using Access Control List
