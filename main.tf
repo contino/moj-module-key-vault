@@ -74,4 +74,16 @@ resource "azurerm_key_vault_access_policy" "creator_access_policy" {
     "Recover",
     "Purge",
   ]
+
+  storage_permissions = [
+      "Get",
+      "List",
+      "Set",
+      "SetSAS",
+      "GetSAS",
+      "DeleteSAS",
+      "Update",
+      "RegenerateKey"
+    ]
+    
 }
