@@ -43,10 +43,7 @@ resource "azurerm_key_vault_access_policy" "implicit_managed_identity_access_pol
   object_id = azurerm_user_assigned_identity.managed_identity[0].principal_id
   tenant_id = data.azurerm_client_config.current.tenant_id
 
-  key_permissions = [
-    "Get",
-    "List",
-  ]
+  key_permissions = ["Get","Create", "List", "Restore", "Recover", "UnwrapKey", "WrapKey", "Purge", "Encrypt", "Decrypt", "Sign", "Verify",]
 
   certificate_permissions = [
     "Get",
