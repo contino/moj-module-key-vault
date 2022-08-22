@@ -55,5 +55,16 @@ resource "azurerm_key_vault_access_policy" "implicit_managed_identity_access_pol
     "List",
   ]
 
+  storage_permissions = [
+      "Get",
+      "List",
+      "Set",
+      "SetSAS",
+      "GetSAS",
+      "DeleteSAS",
+      "Update",
+      "RegenerateKey"
+    ]
+    
   count = var.create_managed_identity ? 1 : 0
 }
