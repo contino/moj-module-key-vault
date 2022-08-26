@@ -17,3 +17,8 @@ output "managed_identity_objectid" {
 output "managed_identity_clientid" {
   value = azurerm_user_assigned_identity.managed_identity.*.client_id
 }
+
+output "managed_identity_id" {
+  value = azurerm_user_assigned_identity.managed_identity.*.id
+}
+
