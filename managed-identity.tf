@@ -63,7 +63,7 @@ resource "azurerm_key_vault_access_policy" "implicit_managed_identity_access_pol
       "GetSAS",
       "DeleteSAS",
       "Update",
-      "RegenerateKey"
+      "RegenerateKey",
     ]
     
   count = var.create_managed_identity ? 1 : 0
