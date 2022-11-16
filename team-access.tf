@@ -35,11 +35,13 @@ resource "azurerm_key_vault_access_policy" "product_team_access_policy" {
     "ListIssuers",
     "SetIssuers",
     "DeleteIssuers",
+    "Recover",
   ]
 
   secret_permissions = [
     "List",
     "Set",
     "Delete",
+    "Recover",
   ]
 }
