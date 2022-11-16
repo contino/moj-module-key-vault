@@ -20,6 +20,7 @@ resource "azurerm_key_vault_access_policy" "product_team_access_policy" {
     "Create",
     "Import",
     "Delete",
+    "Recover",
   ]
 
   certificate_permissions = [
