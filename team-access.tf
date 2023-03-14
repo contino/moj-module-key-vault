@@ -1,5 +1,6 @@
 data "azuread_group" "product_team" {
-  display_name = var.product_group_name
+  display_name     = var.product_group_name
+  security_enabled = true
 
   count = var.product_group_name == "" ? 0 : 1
 }
