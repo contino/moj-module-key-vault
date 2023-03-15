@@ -3,7 +3,7 @@ resource "azurerm_monitor_diagnostic_setting" "kv-ds" {
   target_resource_id         = azurerm_key_vault.kv.id
   log_analytics_workspace_id = module.log_analytics_workspace.workspace_id
 
-  enabled_log {
+  log {
     category = "AuditEvent"
 
     retention_policy {
