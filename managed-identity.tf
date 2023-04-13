@@ -1,11 +1,6 @@
 locals {
   managed_identity_list = toset(compact(concat(var.managed_identity_object_ids, [var.managed_identity_object_id])))
-}
-
-data "azurerm_kubernetes_cluster" "kubernetes_cluster" {
-  count               = 2
-  name                = "cft-${var.env}-0${count.index}-aks"
-  resource_group_name = "cft-${var.env}-0${count.index}-rg"
+  namespace             = length(var.namespace) == 0 ? "${var.product}" : "${var.namespace}"
 }
 
 resource "azurerm_user_assigned_identity" "managed_identity" {
@@ -19,15 +14,19 @@ resource "azurerm_user_assigned_identity" "managed_identity" {
   count = var.create_managed_identity ? 1 : 0
 }
 
+data "azurerm_kubernetes_cluster" "kubernetes_cluster" {
+  count               = 2
+  name                = "cft-${var.env}-0${count.index}-aks"
+  resource_group_name = "cft-${var.env}-0${count.index}-rg"
+}
+
 resource "azurerm_federated_identity_credential" "federated_credential" {
   name                = "${var.product}-${var.env}-fdc"
   resource_group_name = "managed-identities-${var.env}-rg"
   audience            = ["api://AzureADTokenExchange"]
-  issuer    = data.azurerm_kubernetes_cluster.kubernetes_cluster[*].oidc_issuer_url
-  parent_id = azurerm_user_assigned_identity.managed_identity.id
-
-  // not sure what's needed here as each application has a service account currently
-  subject = "system:serviceaccount:${SERVICE_ACCOUNT_NAMESPACE}:${SERVICE_ACCOUNT_NAME}"
+  issuer              = data.azurerm_kubernetes_cluster.kubernetes_cluster[*].oidc_issuer_url
+  parent_id           = azurerm_user_assigned_identity.managed_identity.id
+  subject             = "system:serviceaccount:${local.namespace}:${var.product}"
 }
 
 resource "azurerm_key_vault_access_policy" "managed_identity_access_policy" {

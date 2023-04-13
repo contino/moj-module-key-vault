@@ -6,6 +6,10 @@ variable "name" {
 variable "product" {
   description = "(Required) The name of your application"
 }
+variable "namespace" {
+  description = "The namespace of your application"
+  default     = ""
+}
 
 variable "env" {
   description = "(Required)"
