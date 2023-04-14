@@ -7,8 +7,8 @@ variable "product" {
   description = "(Required) The name of your application"
 }
 variable "namespace" {
-  description = "The namespace of your application"
-  default     = ""
+  description = "The namespace of your application, defaults to product, override if your Kubernetes namespace is different to the product."
+  default     = null
 }
 
 variable "env" {

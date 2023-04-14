@@ -1,6 +1,6 @@
 locals {
   managed_identity_list = toset(compact(concat(var.managed_identity_object_ids, [var.managed_identity_object_id])))
-  namespace             = length(var.namespace) == 0 ? "${var.product}" : "${var.namespace}"
+  namespace             = var.namespace != null ? var.namespace : var.product
 }
 
 resource "azurerm_user_assigned_identity" "managed_identity" {
@@ -26,7 +26,7 @@ resource "azurerm_federated_identity_credential" "federated_credential" {
   audience            = ["api://AzureADTokenExchange"]
   issuer              = data.azurerm_kubernetes_cluster.kubernetes_cluster[*].oidc_issuer_url
   parent_id           = azurerm_user_assigned_identity.managed_identity.id
-  subject             = "system:serviceaccount:${local.namespace}:${var.product}"
+  subject             = "system:serviceaccount:${local.namespace}:${local.namespace}"
 }
 
 resource "azurerm_key_vault_access_policy" "managed_identity_access_policy" {
