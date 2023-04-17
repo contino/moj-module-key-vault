@@ -172,31 +172,11 @@ module "this" {
 }
 ```
 
-#### Workload Identity AKS details
-To associate the federated identity credential with an issuer, an `oidc_issuer_url` is needed. This comes from the `azurerm_kubernetes_cluster.kubernetes_cluster` resource, where the provider `azurerm.aks_subscription` has a subscription set by the `aks_subscription_id` variable:
+AKS Cluster provider:
 
 ```hcl
 variable "aks_subscription_id" {
   description = "Provided by the Jenkins library, ADO users will need to specify this."
   default     = "xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx"
-}
-```
-
-Kubernetes Cluster and Federated Credentials:
-```hcl
-data "azurerm_kubernetes_cluster" "kubernetes_cluster" {
-  count               = 2
-  provider            = azurerm.aks_subscription
-  name                = "${local.aks_prefix}-${local.environment}-0${count.index}-aks"
-  resource_group_name = "${local.aks_prefix}-${local.environment}-0${count.index}-rg"
-}
-
-resource "azurerm_federated_identity_credential" "federated_credential" {
-  name                = "${var.product}-${var.env}-fdc"
-  resource_group_name = "managed-identities-${var.env}-rg"
-  audience            = ["api://AzureADTokenExchange"]
-  issuer              = data.azurerm_kubernetes_cluster.kubernetes_cluster[*].oidc_issuer_url
-  parent_id           = azurerm_user_assigned_identity.managed_identity.id
-  subject             = "system:serviceaccount:${local.namespace}:${local.namespace}"
 }
 ```
