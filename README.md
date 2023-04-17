@@ -20,6 +20,7 @@ module "this" {
 The module creates the following permissions:
  - Jenkins access to Keyvault
  - Managed Identity ($product)-$env-mi
+ - Federated Identity Credential $product-$env-fdc
  - Product team/developers access
 
 ## Reading secrets
@@ -153,4 +154,49 @@ $ az identity show --name <identity-name>-sandbox-mi -g managed-identities-<env>
 i.e. for sandbox 
 ```bash
 $ az identity show --name cnp-sandbox-mi -g managed-identities-sbox-rg --subscription DCD-CFT-Sandbox --query principalId -o tsv
+```
+#### Workload Identity
+A Federated Identity Credential will be created with the name `$product-$env-fdc` for using Workload Identity on AKS. The subject of this resource is `system:serviceaccount:${local.namespace}:${local.namespace}` - ideally you will supply `namespace` as a variable when calling this module:
+
+```hcl
+module "this" {
+  source              = "git@github.com:hmcts/cnp-module-key-vault?ref=master"
+  name                = "rhubarb-fe-${var.env}" // Max 24 characters
+  product             = var.product
+  namespace           = "Your team's AKS namespace" # e.g. sscs, xui, dm-store
+  env                 = var.env
+  object_id           = var.jenkins_AAD_objectId
+  resource_group_name = azurerm_resource_group.rg.name
+  product_group_name  = "Your AAD group" # e.g. MI Data Platform, or dcd_cmc
+}
+```
+Otherwise, `$local.namespace` variable within the subject will default to your supplied `product` value. Service Accounts are configured to be one per namespace in AKS, and are named as `$namespace`.
+
+### Workload Identity AKS details
+To associate the federated identity credential with an issuer, an `oidc_issuer_url` is needed. This comes from the `azurerm_kubernetes_cluster.kubernetes_cluster` resource, where the provider `azurerm.aks_subscription` has a subscription set by the `aks_subscription_id` variable:
+
+```hcl
+variable "aks_subscription_id" {
+  description = "Provided by the Jenkins library, ADO users will need to specify this."
+  default     = "xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx"
+}
+```
+
+Kubernetes Cluster and Federated Credentials:
+```hcl
+data "azurerm_kubernetes_cluster" "kubernetes_cluster" {
+  count               = 2
+  provider            = azurerm.aks_subscription
+  name                = "${local.aks_prefix}-${local.environment}-0${count.index}-aks"
+  resource_group_name = "${local.aks_prefix}-${local.environment}-0${count.index}-rg"
+}
+
+resource "azurerm_federated_identity_credential" "federated_credential" {
+  name                = "${var.product}-${var.env}-fdc"
+  resource_group_name = "managed-identities-${var.env}-rg"
+  audience            = ["api://AzureADTokenExchange"]
+  issuer              = data.azurerm_kubernetes_cluster.kubernetes_cluster[*].oidc_issuer_url
+  parent_id           = azurerm_user_assigned_identity.managed_identity.id
+  subject             = "system:serviceaccount:${local.namespace}:${local.namespace}"
+}
 ```

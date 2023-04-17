@@ -6,8 +6,19 @@ variable "name" {
 variable "product" {
   description = "(Required) The name of your application"
 }
+
+variable "aks_subscription_id" {
+  description = "Provided by the Jenkins library, ADO users will need to specify this."
+  default     = "xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx"
+}
+
 variable "namespace" {
   description = "The namespace of your application, defaults to product, override if your Kubernetes namespace is different to the product."
+  default     = null
+}
+
+variable "businessArea" {
+  description = "The business area name, please use either CFT or SDS."
   default     = null
 }
 
