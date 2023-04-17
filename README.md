@@ -155,7 +155,7 @@ i.e. for sandbox
 ```bash
 $ az identity show --name cnp-sandbox-mi -g managed-identities-sbox-rg --subscription DCD-CFT-Sandbox --query principalId -o tsv
 ```
-#### Workload Identity
+### Workload Identity
 A Federated Identity Credential will be created with the name `$product-$env-fdc` for using Workload Identity on AKS. The subject of this resource is `system:serviceaccount:${local.namespace}:${local.namespace}` - ideally you will supply `namespace` as a variable when calling this module:
 
 ```hcl
@@ -172,7 +172,7 @@ module "this" {
 ```
 Otherwise, `$local.namespace` variable within the subject will default to your supplied `product` value. Service Accounts are configured to be one per namespace in AKS, and are named as `$namespace`.
 
-### Workload Identity AKS details
+#### Workload Identity AKS details
 To associate the federated identity credential with an issuer, an `oidc_issuer_url` is needed. This comes from the `azurerm_kubernetes_cluster.kubernetes_cluster` resource, where the provider `azurerm.aks_subscription` has a subscription set by the `aks_subscription_id` variable:
 
 ```hcl
