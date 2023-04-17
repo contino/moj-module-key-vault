@@ -1,10 +1,8 @@
 locals {
   managed_identity_list = toset(compact(concat(var.managed_identity_object_ids, [var.managed_identity_object_id])))
   namespace             = var.namespace != null ? var.namespace : var.product
-  environment           = var.businessArea == "SDS" ? (var.env == "perftest") ? "test" : (var.env == "aat") ? "stg" : (var.env == "preview") ? "dev" : var.env : var.env
   aks_prefix            = var.businessArea == "SDS" ? "ss" : "cft"
 }
-
 resource "azurerm_user_assigned_identity" "managed_identity" {
 
   resource_group_name = "managed-identities-${var.env}-rg"
@@ -19,8 +17,8 @@ resource "azurerm_user_assigned_identity" "managed_identity" {
 data "azurerm_kubernetes_cluster" "kubernetes_cluster" {
   count               = 2
   provider            = azurerm.aks_subscription
-  name                = "${local.aks_prefix}-${local.environment}-0${count.index}-aks"
-  resource_group_name = "${local.aks_prefix}-${local.environment}-0${count.index}-rg"
+  name                = "${local.aks_prefix}-${var.env}-0${count.index}-aks"
+  resource_group_name = "${local.aks_prefix}-${var.env}-0${count.index}-rg"
 }
 
 resource "azurerm_federated_identity_credential" "federated_credential" {
