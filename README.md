@@ -174,7 +174,6 @@ module "this" {
   product_group_name  = "Your AAD group" # e.g. MI Data Platform, or dcd_cmc
 }
 ```
-Otherwise, `$local.namespace` variable within the subject will default to your supplied `product` value. Service Accounts are configured to be one per namespace in AKS, and are named as `$namespace`.
 
 #### Workload Identity AKS details
 To associate the federated identity credential with an issuer, an `oidc_issuer_url` is needed. This comes from the `azurerm_kubernetes_cluster.kubernetes_cluster` resource, where the provider `azurerm.aks_subscription` has a subscription set by the `aks_subscription_id` variable:
