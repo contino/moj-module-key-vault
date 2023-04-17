@@ -1,7 +1,7 @@
 locals {
   managed_identity_list = toset(compact(concat(var.managed_identity_object_ids, [var.managed_identity_object_id])))
   namespace             = var.namespace != null ? var.namespace : var.product
-  environment           = (var.env == "perftest") ? "test" : (var.env == "aat") ? "stg" : (var.env == "preview") ? "dev" : "${var.env}"
+  environment           = var.businessArea == "SDS" ? (var.env == "perftest") ? "test" : (var.env == "aat") ? "stg" : (var.env == "preview") ? "dev" : "${var.env}" : "${var.env}"
   aks_prefix            = var.businessArea == "SDS" ? "ss" : "cft"
 }
 
