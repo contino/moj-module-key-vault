@@ -21,6 +21,20 @@ module "this" {
 }
 ```
 
+provider.tf
+```hcl
+provider "azurerm" {
+  features {}
+}
+
+provider "azurerm" {
+  features {}
+  skip_provider_registration = true
+  alias                      = "aks_subscription"
+  subscription_id            = var.aks_subscription_id
+}
+```
+
 ## Notes
 
 The module creates the following permissions:
