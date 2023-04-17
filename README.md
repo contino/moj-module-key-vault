@@ -2,6 +2,12 @@
 
 This is a terraform module for creating an azure key vault resource
 
+## Requirements
+
+| Name | Version |
+|------|---------|
+| <a name="requirement_azurerm"></a> [azurerm](#requirement\_azurerm) | >= 3.0.0 |
+
 ## Usage
 ```hcl
 module "this" {

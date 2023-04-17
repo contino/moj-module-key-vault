@@ -4,13 +4,6 @@ locals {
 
 data "azurerm_client_config" "current" {}
 
-provider "azurerm" {
-  features {}
-  skip_provider_registration = true
-  alias                      = "aks_subscription"
-  subscription_id            = var.aks_subscription_id
-}
-
 resource "azurerm_key_vault" "kv" {
   name                = local.vaultName
   location            = var.location
