@@ -155,7 +155,9 @@ i.e. for sandbox
 ```bash
 $ az identity show --name cnp-sandbox-mi -g managed-identities-sbox-rg --subscription DCD-CFT-Sandbox --query principalId -o tsv
 ```
+
 ### Workload Identity
+
 A Federated Identity Credential will be created with the name `$product-$env-fdc` for using Workload Identity on AKS. The subject of this resource is `system:serviceaccount:${local.namespace}:${local.namespace}` - ideally you will supply `namespace` as a variable when calling this module:
 
 Your namespace will default to your product name, if these don't match then you will need to pass the `namespace` variable to override it:
