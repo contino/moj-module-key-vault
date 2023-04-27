@@ -12,6 +12,7 @@ module "key_vault" {
   object_id           = var.jenkins_AAD_objectId
   resource_group_name = azurerm_resource_group.rg.name
   product_group_name  = "Your AAD group" # e.g. MI Data Platform, or dcd_cmc
+  common_tags         = var.common_tags
 }
 ```
 
