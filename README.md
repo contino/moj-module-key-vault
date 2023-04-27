@@ -4,7 +4,7 @@ This is a terraform module for creating an azure key vault resource
 
 ## Usage
 ```hcl
-module "this" {
+module "key_vault" {
   source              = "git@github.com:hmcts/cnp-module-key-vault?ref=master"
   name                = "rhubarb-fe-${var.env}" // Max 24 characters
   product             = var.product
@@ -97,7 +97,7 @@ data "azurerm_subnet" "jenkins_subnet" {
   resource_group_name  = "cft-ptl-network-rg"
 }
 
-module "this" {
+module "key_vault" {
   source              = "git@github.com:hmcts/cnp-module-key-vault?ref=master"
  #...
   network_acls_allowed_subnet_ids = [data.azurerm_subnet.jenkins_subnet.id] 
@@ -134,7 +134,7 @@ data "azurerm_user_assigned_identity" "cmc-identity" {
  resource_group_name = "managed-identities-${var.env}-rg"
 }
 
-module "this" { 
+module "key_vault" { 
   source              = "git@github.com:hmcts/cnp-module-key-vault?ref=master"
   #...
   managed_identity_object_ids = [data.azurerm_user_assigned_identity.cmc-identity.principal_id]
