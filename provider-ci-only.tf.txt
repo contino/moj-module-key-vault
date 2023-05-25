@@ -1,9 +1,0 @@
-# azurerm v2 had a great idea to make features mandatory
-# but then modules need to have it
-# but modules aren't supposed to define a provider
-# so we have this hack (CI renames this while running)
-# if anyone finds a better solution pls remove and let me know
-
-provider "azurerm" { 
-    features {} 
-}
