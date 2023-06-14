@@ -102,4 +102,6 @@ variable "private_endpoint_subnet_id" {
   default     = ""
 }
 
-variable "private_endpoint_name" {}
+variable "private_endpoint_name" {
+  default = null
+}
