@@ -3,7 +3,7 @@
 resource "azurerm_private_endpoint" "this" {
   count = var.private_endpoint_subnet_id != "" ? 1 : 0
 
-  name                = local.vault_name
+  name                = var.private_endpoint_name == "" ? "${local.vault_name}-vault-pe" : var.private_endpoint_name
   resource_group_name = var.resource_group_name
   location            = var.location
   subnet_id           = var.private_endpoint_subnet_id
