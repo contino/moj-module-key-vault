@@ -1,7 +1,7 @@
 # TODO make a breaking change at some point to automatically default a subnet id like in:
 # https://github.com/hmcts/terraform-module-servicebus-namespace/blob/1b9bd99b936710ab63aeb89c167266f2ad0b09ba/private-endpoint.tf#L1-L15
 resource "azurerm_private_endpoint" "this" {
-  count = var.private_endpoint_subnet_id != "" ? 1 : 0
+  count = var.private_endpoint_subnet_id != null ? 1 : 0
 
   name                = var.private_endpoint_name == null ? "${local.vault_name}-vault-pe" : var.private_endpoint_name
   resource_group_name = var.resource_group_name

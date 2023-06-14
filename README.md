@@ -156,6 +156,8 @@ i.e. for sandbox
 $ az identity show --name cnp-sandbox-mi -g managed-identities-sbox-rg --subscription DCD-CFT-Sandbox --query principalId -o tsv
 ```
 
+### Private endpoints
+
 To enable private endpoints:
 
 ```terraform
@@ -197,5 +199,4 @@ variables.tf:
 variable "businessArea" {
   default = "" # sds or cft, fill this in
 }
-variable "aks_subscription_id" {} # supplied by the Jenkins library and only needed on CFT
 ```
