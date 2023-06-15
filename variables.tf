@@ -96,3 +96,12 @@ variable "network_acls_allowed_subnet_ids" {
 variable "purge_protection_enabled" {
   default = true
 }
+
+variable "private_endpoint_subnet_id" {
+  description = "Subnet ID to attach private endpoint to - overrides the default subnet id"
+  default     = null
+}
+
+variable "private_endpoint_name" {
+  default = null
+}
