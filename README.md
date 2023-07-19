@@ -4,7 +4,7 @@ This is a terraform module for creating an azure key vault resource
 
 ## Usage
 ```hcl
-module "this" {
+module "key_vault" {
   source              = "git@github.com:hmcts/cnp-module-key-vault?ref=master"
   name                = "rhubarb-fe-${var.env}" // Max 24 characters
   product             = var.product
@@ -12,6 +12,7 @@ module "this" {
   object_id           = var.jenkins_AAD_objectId
   resource_group_name = azurerm_resource_group.rg.name
   product_group_name  = "Your AAD group" # e.g. MI Data Platform, or dcd_cmc
+  common_tags         = var.common_tags
 }
 ```
 
@@ -97,7 +98,7 @@ data "azurerm_subnet" "jenkins_subnet" {
   resource_group_name  = "cft-ptl-network-rg"
 }
 
-module "this" {
+module "key_vault" {
   source              = "git@github.com:hmcts/cnp-module-key-vault?ref=master"
  #...
   network_acls_allowed_subnet_ids = [data.azurerm_subnet.jenkins_subnet.id] 
@@ -134,7 +135,7 @@ data "azurerm_user_assigned_identity" "cmc-identity" {
  resource_group_name = "managed-identities-${var.env}-rg"
 }
 
-module "this" { 
+module "key_vault" { 
   source              = "git@github.com:hmcts/cnp-module-key-vault?ref=master"
   #...
   managed_identity_object_ids = [data.azurerm_user_assigned_identity.cmc-identity.principal_id]
@@ -153,4 +154,49 @@ $ az identity show --name <identity-name>-sandbox-mi -g managed-identities-<env>
 i.e. for sandbox 
 ```bash
 $ az identity show --name cnp-sandbox-mi -g managed-identities-sbox-rg --subscription DCD-CFT-Sandbox --query principalId -o tsv
+```
+
+### Private endpoints
+
+To enable private endpoints:
+
+```terraform
+locals {
+  private_endpoint_rg_name   = var.businessArea == "sds" ? "ss-${var.env}-network-rg" : "${var.businessArea}-${var.env}-network-rg"
+  private_endpoint_vnet_name = var.businessArea == "sds" ? "ss-${var.env}-vnet" : "${var.businessArea}-${var.env}-vnet"
+}
+# CFT only, on SDS remove this provider
+provider "azurerm" {
+  alias           = "private_endpoints"
+  subscription_id = var.aks_subscription_id
+  features {}
+  skip_provider_registration = true
+}
+data "azurerm_subnet" "private_endpoints" {
+  # CFT only you will need to provide an extra provider, uncomment the below line, on SDS remove this line and the next
+  # azurerm.private_endpoints
+  resource_group_name  = local.private_endpoint_rg_name
+  virtual_network_name = local.private_endpoint_vnet_name
+  name                 = "private-endpoints"
+}
+
+module "this" {
+  source                     = "git@github.com:hmcts/cnp-module-key-vault?ref=master"
+  name                       = "rhubarb-fe-${var.env}" // Max 24 characters
+  product                    = var.product
+  env                        = var.env
+  object_id                  = var.jenkins_AAD_objectId
+  resource_group_name        = azurerm_resource_group.rg.name
+  product_group_name         = "Your AAD group" # e.g. MI Data Platform, or dcd_cmc
+  private_endpoint_subnet_id = data.azurerm_subnet.endpoint_subnet.id
+  common_tags                = var.common_tags
+}
+```
+
+variables.tf:
+
+```terraform
+variable "businessArea" {
+  default = "" # sds or cft, fill this in
+}
 ```

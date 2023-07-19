@@ -1,5 +1,6 @@
 data "azuread_group" "product_team" {
-  display_name = var.product_group_name
+  display_name     = var.product_group_name
+  security_enabled = true
 
   count = var.product_group_name == "" ? 0 : 1
 }
@@ -20,6 +21,7 @@ resource "azurerm_key_vault_access_policy" "product_team_access_policy" {
     "Create",
     "Import",
     "Delete",
+    "Recover",
   ]
 
   certificate_permissions = [
@@ -34,11 +36,13 @@ resource "azurerm_key_vault_access_policy" "product_team_access_policy" {
     "ListIssuers",
     "SetIssuers",
     "DeleteIssuers",
+    "Recover",
   ]
 
   secret_permissions = [
     "List",
     "Set",
     "Delete",
+    "Recover",
   ]
 }
