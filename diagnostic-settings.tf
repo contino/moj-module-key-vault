@@ -5,11 +5,6 @@ resource "azurerm_monitor_diagnostic_setting" "kv-ds" {
 
   enabled_log {
     category = "AuditEvent"
-
-    retention_policy {
-      enabled = true
-      days    = 14
-    }
   }
 }
 
