@@ -13,7 +13,10 @@ node {
 
     stage('Terraform install') {
         dir(exampleModule) {
-            sh 'tfenv install'
+            sh '''
+                tfenv install
+                tfenv use
+            '''
         }
     }
 
