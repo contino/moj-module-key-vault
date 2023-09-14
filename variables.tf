@@ -105,3 +105,13 @@ variable "private_endpoint_subnet_id" {
 variable "private_endpoint_name" {
   default = null
 }
+
+variable "product_names" {
+  type    = list(string)
+  default = []
+}
+
+variable "product_name" {
+  default     = ""
+  description = "the product name of the managed identity"
+}
