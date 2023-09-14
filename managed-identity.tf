@@ -1,5 +1,5 @@
 locals {
-  managed_identity_list = toset(compact(concat(var.managed_identity_object_ids, [var.managed_identity_object_id])))
+  managed_identity_list      = toset(compact(concat(var.managed_identity_object_ids, [var.managed_identity_object_id])))
   managed_identity_name_list = toset(compact(concat([var.product_name-aat-mi], [var.product_names-aat-mi])))
 }
 
