@@ -49,7 +49,7 @@ resource "azurerm_key_vault_access_policy" "managed_identity_names_access_policy
     "List"
   ]
 
-  for_each = ${local.managed_identity_name_list}-aat-mi
+  for_each = local.managed_identity_name_list-aat-mi
 }
 
 
