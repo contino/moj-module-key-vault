@@ -1,6 +1,5 @@
 locals {
   managed_identity_list      = toset(compact(concat(var.managed_identity_object_ids, [var.managed_identity_object_id])))
-  managed_identity_name_list = var.env == "aat" ? toset(compact(concat([var.product_name-${var.env}-mi], [var.product_names-${var.env}-mi]))) : {}
 }
 
 resource "azurerm_user_assigned_identity" "managed_identity" {
@@ -37,11 +36,16 @@ resource "azurerm_key_vault_access_policy" "managed_identity_access_policy" {
   for_each = local.managed_identity_list
 }
 
+data "azurerm_user_assigned_identity" "additional_managed_identities_access"{
+  for_each  = toset(var.additional_managed_identities_access)
+  name      = "${each.value}-${var.env}-mi"
+  resource_group_name = "managed-identities-${var.env}-rg"
+}
+
 resource "azurerm_key_vault_access_policy" "managed_identity_names_access_policy" {
-  # count = var.env == "aat" ? 1 : 0
 
   key_vault_id = azurerm_key_vault.kv.id
-  object_id    = each.value
+  object_id    = data.azurerm_user_assigned_identity[each.value].principal_id
   tenant_id    = data.azurerm_client_config.current.tenant_id
 
   secret_permissions = [
@@ -49,7 +53,7 @@ resource "azurerm_key_vault_access_policy" "managed_identity_names_access_policy
     "List"
   ]
 
-  for_each = local.managed_identity_name_list
+  for_each  = toset(var.additional_managed_identities_access)
 }
 
 
