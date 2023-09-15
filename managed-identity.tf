@@ -45,7 +45,7 @@ data "azurerm_user_assigned_identity" "additional_managed_identities_access"{
 resource "azurerm_key_vault_access_policy" "managed_identity_names_access_policy" {
 
   key_vault_id = azurerm_key_vault.kv.id
-  object_id    = data.azurerm_user_assigned_identity[each.value].principal_id
+  object_id    = data.azurerm_user_assigned_identity.principal_id
   tenant_id    = data.azurerm_client_config.current.tenant_id
 
   secret_permissions = [
