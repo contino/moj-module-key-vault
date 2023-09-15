@@ -1,6 +1,6 @@
 locals {
   managed_identity_list      = toset(compact(concat(var.managed_identity_object_ids, [var.managed_identity_object_id])))
-  managed_identity_name_list = var.env == "aat" ? toset(compact(concat([var.product_name], [var.product_names]))) : {}
+  managed_identity_name_list = var.env == "aat" ? toset(compact(concat([var.product_name-${var.env}-mi], [var.product_names-${var.env}-mi]))) : {}
 }
 
 resource "azurerm_user_assigned_identity" "managed_identity" {
@@ -49,7 +49,7 @@ resource "azurerm_key_vault_access_policy" "managed_identity_names_access_policy
     "List"
   ]
 
-  for_each = local.managed_identity_name_list-aat-mi
+  for_each = local.managed_identity_name_list
 }
 
 
