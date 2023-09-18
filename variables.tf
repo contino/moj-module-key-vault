@@ -105,3 +105,8 @@ variable "private_endpoint_subnet_id" {
 variable "private_endpoint_name" {
   default = null
 }
+
+variable "additional_managed_identities_access" {
+  type    = list(string)
+  default = []
+}
