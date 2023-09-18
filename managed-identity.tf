@@ -1,5 +1,5 @@
 locals {
-  managed_identity_list      = toset(compact(concat(var.managed_identity_object_ids, [var.managed_identity_object_id])))
+  managed_identity_list = toset(compact(concat(var.managed_identity_object_ids, [var.managed_identity_object_id])))
 }
 
 resource "azurerm_user_assigned_identity" "managed_identity" {
@@ -36,9 +36,9 @@ resource "azurerm_key_vault_access_policy" "managed_identity_access_policy" {
   for_each = local.managed_identity_list
 }
 
-data "azurerm_user_assigned_identity" "additional_managed_identities_access"{
-  for_each  = toset(var.additional_managed_identities_access)
-  name      = "${each.value}-${var.env}-mi"
+data "azurerm_user_assigned_identity" "additional_managed_identities_access" {
+  for_each            = toset(var.additional_managed_identities_access)
+  name                = "${each.value}-${var.env}-mi"
   resource_group_name = "managed-identities-${var.env}-rg"
 }
 
@@ -53,7 +53,7 @@ resource "azurerm_key_vault_access_policy" "managed_identity_names_access_policy
     "List"
   ]
 
-  for_each  = toset(var.additional_managed_identities_access)
+  for_each = toset(var.additional_managed_identities_access)
 }
 
 resource "azurerm_key_vault_access_policy" "implicit_managed_identity_access_policy" {
