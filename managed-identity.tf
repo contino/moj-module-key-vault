@@ -1,6 +1,6 @@
 locals {
   managed_identity_list = toset(compact(concat(var.managed_identity_object_ids, [var.managed_identity_object_id])))
-  env = replace(var.env, "idam-", "")
+  env                   = replace(var.env, "idam-", "")
 }
 
 resource "azurerm_user_assigned_identity" "managed_identity" {
