@@ -8,7 +8,7 @@ resource "azurerm_monitor_diagnostic_setting" "kv-ds" {
   }
 
   lifecycle {
-    ignore_changes = [ metric ]
+    ignore_changes = [metric]
   }
 }
 
