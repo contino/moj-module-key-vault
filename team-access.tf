@@ -17,6 +17,7 @@ resource "azurerm_key_vault_access_policy" "product_team_access_policy" {
 
   key_permissions = [
     "List",
+    "Get",
     "Update",
     "Create",
     "Import",
@@ -26,6 +27,7 @@ resource "azurerm_key_vault_access_policy" "product_team_access_policy" {
 
   certificate_permissions = [
     "List",
+    "Get",
     "Update",
     "Create",
     "Import",
@@ -41,6 +43,7 @@ resource "azurerm_key_vault_access_policy" "product_team_access_policy" {
 
   secret_permissions = [
     "List",
+    "Get",
     "Set",
     "Delete",
     "Recover",
