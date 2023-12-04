@@ -6,6 +6,16 @@ resource "azurerm_monitor_diagnostic_setting" "kv-ds" {
   enabled_log {
     category = "AuditEvent"
   }
+
+  metric {
+    category = "AllMetrics"
+    enabled  = false
+
+    retention_policy {
+      days    = 0
+      enabled = false
+    }
+  }
 }
 
 module "log_analytics_workspace" {
