@@ -1,15 +1,16 @@
 resource "azurerm_monitor_diagnostic_setting" "kv-ds" {
-  name                       = local.vaultName
+  name                       = local.vault_name
   target_resource_id         = azurerm_key_vault.kv.id
   log_analytics_workspace_id = module.log_analytics_workspace.workspace_id
 
-  log {
+  enabled_log {
     category = "AuditEvent"
+  }
 
-    retention_policy {
-      enabled = true
-      days    = 14
-    }
+  lifecycle {
+    ignore_changes = [
+      metric,
+    ]
   }
 }
 

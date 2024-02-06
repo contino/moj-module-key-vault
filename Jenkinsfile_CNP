@@ -11,13 +11,18 @@ node {
         checkout scm
     }
 
-    stage('Terraform init') {
+    stage('Terraform install') {
         dir(exampleModule) {
             sh '''
-              tfenv install
-              terraform --version
-              terraform init
+                tfenv install
+                tfenv use
             '''
+        }
+    }
+
+    stage('Terraform init') {
+        dir(exampleModule) {
+            sh 'terraform init'
         }
     }
 
